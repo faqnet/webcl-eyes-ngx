@@ -1,27 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>WebclEyesNgx</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-</head>
-<body class="mat-typography">
-<app-root fxFill></app-root>
-
-<!--
-
-<h1 style="margin-left: 3em;">I see where you go...</h1>
-
-<script>
-
+const createEyes = () => {
   const eyeView = id => `
     <svg id="${id}" viewBox="0 0 120 120">
 
@@ -59,22 +36,22 @@
   document.writeln(eyeView('leftEye'));
   document.writeln(eyeView('rightEye'));
 
-  const v  = 14; // versatz - Abstand des Pupillenzentrums vom Augenzentrum in SVG units
+  const v = 14; // versatz - Abstand des Pupillenzentrums vom Augenzentrum in SVG units
 
   const eyeBinding = eyeId => {
-    const rect          = document.querySelectorAll(eyeId + "_iris ellipse")[0].getBoundingClientRect();
-    const iris          = document.querySelector(eyeId + "_iris");
+    const rect = document.querySelectorAll(eyeId + "_iris ellipse")[0].getBoundingClientRect();
+    const iris = document.querySelector(eyeId + "_iris");
     const closeLidLayer = document.querySelector(eyeId + "_closeLid");
     closeLidLayer.style.opacity = 0;
 
-    setInterval( evt => {
+    setInterval(evt => {
       if (closeLidLayer.style.opacity === '1') return; // do not close and then open if already closed
       closeLidLayer.style.opacity = '1';
       setTimeout(evt => closeLidLayer.style.opacity = '0', 300)
     }, 7 * 1000);
 
-    const xo = rect.x + rect.width/2;  // x-origin
-    const yo = rect.y + rect.height/2; // y-origin
+    const xo = rect.x + rect.width / 2;  // x-origin
+    const yo = rect.y + rect.height / 2; // y-origin
 
     document.querySelector(eyeId).onclick = evt =>
       closeLidLayer.style.opacity = (closeLidLayer.style.opacity === '1') ? '0' : '1';
@@ -83,19 +60,19 @@
       const xm = evt.clientX - xo; // the normalized x/y coords to work with
       const ym = evt.clientY - yo;
 
-      const xmax = rect.width/1.5;
-      const ymax = rect.height/2;
+      const xmax = rect.width / 1.5;
+      const ymax = rect.height / 2;
 
       const widestFocus = 400; // when x is so far away, the eye is maximal extended
-      const scaledX = xm * (xmax / widestFocus );
-      let   xe = xm > 0
-        ? Math.min( xmax, scaledX)
+      const scaledX = xm * (xmax / widestFocus);
+      let xe = xm > 0
+        ? Math.min(xmax, scaledX)
         : Math.max(-xmax, scaledX);
-      const scaledY = ym * (ymax / widestFocus );
-      let   ye = ym > 0
-        ? Math.min( ymax, scaledY)
+      const scaledY = ym * (ymax / widestFocus);
+      let ye = ym > 0
+        ? Math.min(ymax, scaledY)
         : Math.max(-ymax, scaledY);
-      if (xe*xe + ye*ye > xmax * ymax) {
+      if (xe * xe + ye * ye > xmax * ymax) {
         xe *= 0.9;
         ye *= 0.9;
       }
@@ -103,7 +80,7 @@
     }
   };
 
-  const leftListener  = eyeBinding('#leftEye');
+  const leftListener = eyeBinding('#leftEye');
   const rightListener = eyeBinding('#rightEye');
 
   document.onmousemove = evt => { // highlander pattern
@@ -111,9 +88,4 @@
     rightListener(evt);
   }
 
-</script>
-
-<div id="out"></div>
--->
-</body>
-</html>
+}

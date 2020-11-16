@@ -1,0 +1,48 @@
+<div fxFill fxLayoutGap="20px" fxLayout="column">
+
+  <!-- Eyes -->
+  <div fxLayout="row" fxLayoutGap="10px" fxFlex="none" class="mat-elevation-z8 scrollable padding">
+    <app-eye *ngFor="let number of [1,2,3,4,5,6,7,8, 9,10,11,12,13]"
+             [eyeId]="'eye'+number"
+             [blinkInterval]="(number + 2) * 1000"
+             [resetBlinkInterval]="(number + 2) * 100"
+             (eyeClosedObserver)="changed($event)"
+             (translationObserver)="changed($event)"
+    ></app-eye>
+  </div>
+
+
+  <!-- Table -->
+  <mat-table [dataSource]="eyeStates$ | async" class="mat-elevation-z8" fxFlex>
+    <!-- ID Column -->
+    <ng-container matColumnDef="eyeId">
+      <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
+      <mat-cell *matCellDef="let event"> {{event.eyeId}} </mat-cell>
+    </ng-container>
+
+    <!-- X Column -->
+    <ng-container matColumnDef="x">
+      <mat-header-cell *matHeaderCellDef> X</mat-header-cell>
+      <mat-cell *matCellDef="let event"> {{event.x}} </mat-cell>
+    </ng-container>
+
+    <!-- Y Column -->
+    <ng-container matColumnDef="y">
+      <mat-header-cell *matHeaderCellDef> Y</mat-header-cell>
+      <mat-cell *matCellDef="let event"> {{event.y}} </mat-cell>
+    </ng-container>
+
+    <!-- isOpen Column -->
+    <ng-container matColumnDef="isOpen">
+      <mat-header-cell *matHeaderCellDef> Open</mat-header-cell>
+      <mat-cell *matCellDef="let event">
+        <mat-icon
+          [color]="event.isOpen ? 'primary' : 'warn'">{{ event.isOpen ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'webcl-eyes-ngx';
+
+  opened: boolean;
+
+
+  constructor(private changeDetect: ChangeDetectorRef,) {
+  }
+
+
+  ngAfterViewChecked() {
+    this.changeDetect.detectChanges();
+  }
+
 }
