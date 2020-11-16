@@ -3,7 +3,7 @@ import {IBlinkEvent, ITranslationEvent} from '../eye/eye.component';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-type EyeEvent = Partial<ITranslationEvent & IBlinkEvent>
+type EyeEvent = Readonly<Partial<ITranslationEvent & IBlinkEvent>>
 
 @Component({
   selector: 'app-eyes',
@@ -18,7 +18,7 @@ export class EyesComponent implements OnInit {
    *                                                                         *
    **************************************************************************/
 
-  private _eyeStates$ = new BehaviorSubject<Map<string, EyeEvent>>(new Map<string, EyeEvent>());
+  private readonly _eyeStates$ = new BehaviorSubject<Map<string, EyeEvent>>(new Map<string, EyeEvent>());
 
   public displayedColumns: string[] = ['eyeId', 'x', 'y', 'isOpen'];
 
