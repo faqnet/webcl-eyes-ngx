@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {IBlinkEvent, ITranslationEvent} from '../eye/eye.component';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -8,7 +8,8 @@ type EyeEvent = Readonly<Partial<ITranslationEvent & IBlinkEvent>>
 @Component({
   selector: 'app-eyes',
   templateUrl: './eyes.component.html',
-  styleUrls: ['./eyes.component.scss']
+  styleUrls: ['./eyes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EyesComponent implements OnInit {
 

@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {BehaviorSubject, fromEvent, interval, Observable, Subject} from 'rxjs';
 import {auditTime, filter, map, takeUntil} from 'rxjs/operators';
 
@@ -18,7 +28,8 @@ export interface ITranslationEvent {
 @Component({
   selector: 'app-eye',
   templateUrl: './eye.component.html',
-  styleUrls: ['./eye.component.scss']
+  styleUrls: ['./eye.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EyeComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -50,10 +61,9 @@ export class EyeComponent implements OnInit, AfterViewInit, OnDestroy {
    **************************************************************************/
 
   public lidOpacity$: BehaviorSubject<number> = new BehaviorSubject(0);
-  public _eyeBallTransform$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([0, 0]);
   public eyeBallTransform$: Observable<string>;
 
-
+  private _eyeBallTransform$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([0, 0]);
   private _blinkInterval: Observable<number>;
 
   @ViewChild('rect')
@@ -113,6 +123,7 @@ export class EyeComponent implements OnInit, AfterViewInit, OnDestroy {
    **************************************************************************/
 
   ngOnInit(): void {
+    this.lidOpacity$.next(0);
     this._blinkInterval = interval(this.blinkInterval);
     this._blinkInterval
         .pipe(takeUntil(this._unsub$), filter(evt => this.lidOpacity$.value === 0))
@@ -120,8 +131,6 @@ export class EyeComponent implements OnInit, AfterViewInit, OnDestroy {
           this.lidOpacity$.next(1);
           setTimeout(evt => this.lidOpacity$.next(0), this.resetBlinkInterval);
         });
-
-
   }
 
   ngAfterViewInit(): void {
@@ -155,8 +164,8 @@ export class EyeComponent implements OnInit, AfterViewInit, OnDestroy {
    *                                                                         *
    **************************************************************************/
 
-  private set eyeBallTransform([translateX, translateY]: [number, number]) {
-    this._eyeBallTransform$.next([translateX, translateY]);
+  private set eyeBallTransform(translate: [number, number]) {
+    this._eyeBallTransform$.next(translate);
   }
 
 

@@ -12,10 +12,13 @@ export class HomeComponent implements OnInit {
 
   public n3 = addStuff(1, 2)
 
+
+
   public esnrRef = calcESNR(someReference)
 
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
 

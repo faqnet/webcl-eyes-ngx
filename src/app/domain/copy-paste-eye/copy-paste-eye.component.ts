@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
 
 /*
@@ -105,7 +105,8 @@ document.onmousemove = evt => { // highlander pattern
 @Component({
   selector: 'app-copy-paste-eye',
   templateUrl: './copy-paste-eye.component.html',
-  styleUrls: ['./copy-paste-eye.component.scss']
+  styleUrls: ['./copy-paste-eye.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CopyPasteEyeComponent implements OnInit {
 

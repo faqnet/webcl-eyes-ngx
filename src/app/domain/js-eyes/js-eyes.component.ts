@@ -1,9 +1,10 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-js-eyes',
   templateUrl: './js-eyes.component.html',
-  styleUrls: ['./js-eyes.component.scss']
+  styleUrls: ['./js-eyes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JsEyesComponent implements OnInit {
 

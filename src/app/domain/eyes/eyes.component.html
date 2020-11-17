@@ -35,7 +35,7 @@
     <!-- isOpen Column -->
     <ng-container matColumnDef="isOpen">
       <mat-header-cell *matHeaderCellDef> Open</mat-header-cell>
-      <mat-cell *matCellDef="let event">
+      <mat-cell *matCellDef="let event" [style.background]="'black'">
         <mat-icon
           [color]="event.isOpen ? 'primary' : 'warn'">{{ event.isOpen ? 'visibility' : 'visibility_off'}}</mat-icon>
       </mat-cell>
